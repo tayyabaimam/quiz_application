@@ -2,6 +2,7 @@ package com.tayyaba.quizzapp.controller;
 
 import com.tayyaba.quizzapp.model.Question;
 import com.tayyaba.quizzapp.model.QuestionWrapper;
+import com.tayyaba.quizzapp.model.Response;
 import com.tayyaba.quizzapp.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,5 +27,10 @@ public class QuizController {
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id){
         //we will fetch all fields except for right answer
        return quizService.getQuizQuestions(id);
+    }
+
+    @PostMapping("submit/{id}")
+public ResponseEntity<Integer> submitQuiz(@PathVariable Integer id, @RequestBody List<Response> responses){
+        return quizService.calculateResult(id,responses);
     }
 }
